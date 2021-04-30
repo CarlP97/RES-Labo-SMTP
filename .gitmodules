@@ -1,0 +1,3 @@
+[submodule "mockmockserver/MockMock"]
+	path = mockmockserver/MockMock
+	url = https://github.com/tweakers/MockMock
