@@ -5,6 +5,8 @@ import ch.heigvd.res.pranksender.model.mail.Message;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 public class SMTPClient implements ISMTPClient {
@@ -66,8 +68,29 @@ public class SMTPClient implements ISMTPClient {
         writer.write("DATA\r\n");
         writer.flush();
 
+        writer.write("Content-Type: text/plain; charset=\"utf-8\"\r\n");
+        writer.write("From: " + message.getFrom() + "\r\n");
+
+        writer.write("To: " + message.getTo()[0] + "\r\n");
+        for(int i = 0; i < message.getTo().length; ++i){
+            writer.write(", " + message.getTo()[i]);
+        }
+        writer.write("\r\n");
+
+        writer.write("Cc: " + message.getCc()[0]);
+        for(int i = 0; i < message.getTo().length; ++i){
+            writer.write(", " + message.getCc()[i]);
+        }
+        writer.write("\r\n");
+
+        writer.write("Subject: " + Base64.getEncoder().encodeToString(message.getSubject().getBytes(StandardCharsets.UTF_8)) + "\r\n\n");
+
+        writer.flush();
+
         writer.write(message.getBody());
         writer.write("\r\n.\r\n");
+
+        writer.write("QUIT\r\n");
 
         socket.close();
         writer.close();
