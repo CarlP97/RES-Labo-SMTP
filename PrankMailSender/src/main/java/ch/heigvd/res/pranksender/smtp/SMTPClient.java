@@ -66,9 +66,27 @@ public class SMTPClient implements ISMTPClient {
         writer.write("DATA\r\n");
         writer.flush();
 
+        writer.write("From: " + message.getFrom() + "\r\n");
+
+        writer.write("To: " + message.getTo()[0] + "\r\n");
+        for(int i = 0; i < message.getTo().length; ++i){
+            writer.write(", " + message.getTo()[i]);
+        }
+        writer.write("\r\n");
+
+        writer.write("Cc: " + message.getCc()[0]);
+        for(int i = 0; i < message.getTo().length; ++i){
+            writer.write(", " + message.getCc()[i]);
+        }
+        writer.write("\r\n");
+
+        writer.flush();
+
         writer.write(message.getBody());
         writer.write("\r\n.\r\n");
 
+        writer.write("QUIT\r\n");
+        
         socket.close();
         writer.close();
         reader.close();
