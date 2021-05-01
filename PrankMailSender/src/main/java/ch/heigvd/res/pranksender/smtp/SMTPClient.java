@@ -5,6 +5,8 @@ import ch.heigvd.res.pranksender.model.mail.Message;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 public class SMTPClient implements ISMTPClient {
@@ -81,7 +83,7 @@ public class SMTPClient implements ISMTPClient {
         }
         writer.write("\r\n");
 
-        writer.write("Subject: " + message.getSubject() + "\r\n\n");
+        writer.write("Subject: " + Base64.getEncoder().encodeToString(message.getSubject().getBytes(StandardCharsets.UTF_8)) + "\r\n\n");
 
         writer.flush();
 
@@ -89,7 +91,7 @@ public class SMTPClient implements ISMTPClient {
         writer.write("\r\n.\r\n");
 
         writer.write("QUIT\r\n");
-        
+
         socket.close();
         writer.close();
         reader.close();
