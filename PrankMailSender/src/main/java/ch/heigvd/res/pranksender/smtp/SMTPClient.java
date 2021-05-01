@@ -66,6 +66,7 @@ public class SMTPClient implements ISMTPClient {
         writer.write("DATA\r\n");
         writer.flush();
 
+        writer.write("Content-Type: text/plain; charset=\"utf-8\"\r\n");
         writer.write("From: " + message.getFrom() + "\r\n");
 
         writer.write("To: " + message.getTo()[0] + "\r\n");
@@ -79,6 +80,8 @@ public class SMTPClient implements ISMTPClient {
             writer.write(", " + message.getCc()[i]);
         }
         writer.write("\r\n");
+
+        writer.write("Subject: " + message.getSubject() + "\r\n\n");
 
         writer.flush();
 
