@@ -34,8 +34,9 @@ public class Prank {
 
     public Message generateMessage(){
         Message msg = new Message();
-
-        msg.setBody(this.message + "\r\n" + sender.getFirstname());
+        msg.setSubject(message.lines().findFirst().get().substring(9));
+        String sign = this.sender.getFirstname() + " " + sender.getLastname();
+        msg.setBody(message.substring(message.indexOf("\n")) + "\r\n" + sign);
         msg.setTo(victims.stream().map(Person::getAddress).collect(Collectors.toList()).toArray(new String[]{}));
         msg.setCc(witnesses.stream().map(Person::getAddress).collect(Collectors.toList()).toArray(new String[]{}));
         msg.setFrom(sender.getAddress());

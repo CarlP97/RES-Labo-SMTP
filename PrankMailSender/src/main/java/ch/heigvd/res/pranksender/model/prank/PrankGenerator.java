@@ -21,10 +21,10 @@ public class PrankGenerator {
 
     public List<Prank> generatePrank(){
         List<Prank> pranks = new ArrayList<>();
-        List<String> messages = new ArrayList<>();
+        List<String> messages = configurationManager.getMessages();
         int index = 0;
 
-        int nbOfGroups = 0;
+        int nbOfGroups = configurationManager.getNumberOfGroups();
 
         List<Group> groups = generateGroups(configurationManager.getVictims(), nbOfGroups);
 

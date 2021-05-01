@@ -28,6 +28,9 @@ public class Person {
             firstname = firstname.substring(0,1).toUpperCase() + firstname.substring(1);
             lastname = matcher.group(2);
             lastname = lastname.substring(0,1).toUpperCase() + lastname.substring(1);
+        }else{
+            firstname = "";
+            lastname = "";
         }
 
     }
