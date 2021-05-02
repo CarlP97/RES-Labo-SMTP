@@ -6,6 +6,10 @@ This project is a tool for running a prank campaign by email. It gives you a jav
 
 The campaign is run like this : you make a list of victims, a list of prank to send, a list of CCs and BCCs that will be witnesses to your prank and you choose a number of groups. The victims are placed in the different groups. Among the members of each group, one is chosen to be the sender of the prank. A prank from the list is then sent  from the sender to the other members of his group, with all of the CCs and BCCs.
 
+## Running the application
+
+When you make a `mvn clean install`, the resulting .jar is placed in the target/ directory. To run the jar, you must move it in the same place as the config directory. The program must be able to access the files **config.properties**, **messages.utf8** and **victims.utf8** with the path `./config/<file>`.
+
 ## Installation of a mock SMTP server
 
 The client needs a connection to a SMTP server to be working. If you want to test your pranks before sending them for real  or just have fun with the tool without consequences, you should use a [mock](https://en.wikipedia.org/wiki/Mock_object) SMTP server. A docker image of the project [MockMock](https://github.com/tweakers/MockMock) is included for this purpose. In the directory `docker` you need to first run the script `build-image.sh` then `run-container.sh`. By default, the image makes the SMTP server run on port 2525 and the web interface on port 8083. You can change that by modifying the command in the script `run-container.sh` like that :
