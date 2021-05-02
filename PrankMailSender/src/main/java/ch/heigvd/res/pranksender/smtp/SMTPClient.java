@@ -26,7 +26,7 @@ public class SMTPClient implements ISMTPClient {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 
         String line = reader.readLine();
-        writer.println("EHLO localhost\r\n");
+        writer.write("EHLO localhost\r\n");
         writer.flush();
         line = reader.readLine();
         if(!line.startsWith("250")){
@@ -41,9 +41,6 @@ public class SMTPClient implements ISMTPClient {
         writer.write("\r\n");
         writer.flush();
         line = reader.readLine();
-        if(!line.startsWith("250")){
-            System.out.println("Error sending mail from " + message.getFrom());
-        }
 
         for(String to : message.getTo()){
             writer.write("RCPT TO: ");
@@ -55,6 +52,7 @@ public class SMTPClient implements ISMTPClient {
                 System.out.println("Error sending mail to " + to);
             }
         }
+
         if(message.getCc() != null) {
             for (String to : message.getCc()) {
                 writer.write("RCPT TO: " + to + "\r\n");
@@ -65,6 +63,7 @@ public class SMTPClient implements ISMTPClient {
                 }
             }
         }
+
         if(message.getBcc() != null){
             for(String to : message.getBcc()){
                 writer.write("RCPT TO: " + to + "\r\n");
@@ -79,7 +78,7 @@ public class SMTPClient implements ISMTPClient {
 
         writer.write("DATA\r\n");
         writer.flush();
-
+        line = reader.readLine();
         writer.write("Content-Type: text/plain; charset=\"utf-8\"\r\n");
         writer.write("From: " + message.getFrom() + "\r\n");
 
@@ -103,8 +102,13 @@ public class SMTPClient implements ISMTPClient {
         writer.flush();
         writer.write("\r\n.\r\n");
         writer.flush();
+        line = reader.readLine();
+        if(line.startsWith("250")){
+            System.out.println("Mail sent from : " + message.getFrom());
+        }else{
+            System.out.println("Error sending mail from : " + message.getFrom());
+        }
         writer.write("QUIT\r\n");
-
         socket.close();
         writer.close();
         reader.close();

@@ -20,6 +20,7 @@ public class ConfigurationManager implements IConfigurationManager {
     private final List<String> messages;
     private int numberOfGroups;
     private List<Person> ccs;
+    private List<Person> bccs;
 
     public ConfigurationManager() throws IOException {
         victims = loadAddressesFromFile("./config/victims.utf8");
@@ -40,6 +41,13 @@ public class ConfigurationManager implements IConfigurationManager {
         String[] witnessesAdresses = witnessesToCC.split(",");
         for(String s : witnessesAdresses){
             ccs.add(new Person(s));
+        }
+
+        bccs = new ArrayList<>();
+        String witnessesToBCC = props.getProperty("witnessesToBCC");
+        String[] witnessesAdresses2 = witnessesToCC.split(",");
+        for(String s : witnessesAdresses){
+            bccs.add(new Person(s));
         }
 
     }
