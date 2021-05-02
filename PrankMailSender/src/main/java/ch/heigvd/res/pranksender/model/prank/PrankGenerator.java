@@ -14,11 +14,14 @@ public class PrankGenerator {
 
     private IConfigurationManager configurationManager;
 
-
     public PrankGenerator(IConfigurationManager configurationManager) {
         this.configurationManager = configurationManager;
     }
 
+    /**
+     * Generates the pranks for each group
+     * @return a list of pranks, 1 per group
+     */
     public List<Prank> generatePrank(){
         List<Prank> pranks = new ArrayList<>();
         List<String> messages = configurationManager.getMessages();
@@ -46,8 +49,14 @@ public class PrankGenerator {
         return pranks;
     }
 
+    /**
+     * Generate the groups to be sent the pranks, also checks if there are enough victims
+     * @param victims a list of Person who will receive the pranks, to be divided into nbOfGroups groups
+     * @param nbOfGroups the number of groups
+     * @return a list of groups formed
+     */
     public List<Group> generateGroups(List<Person> victims, int nbOfGroups){
-        if((victims.size() / nbOfGroups) < 3){
+        if((victims.size() / nbOfGroups) < 3){ // each group must have at least 2 victims and the sender
             nbOfGroups = victims.size() / 3;
             System.out.println("Not enough victims for this number of groups");
         }
