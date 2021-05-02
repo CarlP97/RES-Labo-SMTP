@@ -27,6 +27,11 @@ public class ConfigurationManager implements IConfigurationManager {
         loadProperties("./config/config.properties");
     }
 
+    /**
+     * Loads the properties of the prank to be sent
+     * @param filename the file where the properties are stored
+     * @throws IOException
+     */
     private void loadProperties(String filename) throws IOException {
         FileInputStream fis = new FileInputStream(filename);
         Properties props = new Properties();
@@ -44,6 +49,12 @@ public class ConfigurationManager implements IConfigurationManager {
 
     }
 
+    /**
+     * Fetches the mail adresses from the victims
+     * @param filename the file where the adresses are stored
+     * @return a list of the victims
+     * @throws IOException
+     */
     private List<Person> loadAddressesFromFile(String filename) throws IOException {
         List<Person> result;
         try (FileInputStream fis = new FileInputStream(filename)){
@@ -60,6 +71,12 @@ public class ConfigurationManager implements IConfigurationManager {
         return result;
     }
 
+    /**
+     * Fetches the messages to be sent
+     * @param filename the file where the messages are stored
+     * @return a list of the messages
+     * @throws IOException
+     */
     private List<String> loadMessagesFromFile(String filename) throws IOException {
         List<String> result;
         try (FileInputStream fis = new FileInputStream(filename)){

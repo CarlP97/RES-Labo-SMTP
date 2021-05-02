@@ -7,6 +7,10 @@ public class Group {
 
     private  final List<Person> members = new ArrayList<>();
 
+    /**
+     * Get a list of the members of the group
+     * @return
+     */
     public List<Person> getMembers(){
         return new ArrayList<>(members);
     }

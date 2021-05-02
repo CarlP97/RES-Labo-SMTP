@@ -5,9 +5,7 @@ import ch.heigvd.res.pranksender.model.mail.Message;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.logging.Logger;
 
 public class SMTPClient implements ISMTPClient {
 
@@ -19,7 +17,11 @@ public class SMTPClient implements ISMTPClient {
         this.serverPort = serverPort;
     }
 
-
+    /**
+     * Creates a connection on the address and port, writes and sends the message
+     * @param message the message sent
+     * @throws IOException
+     */
     public void sendMessage(Message message) throws IOException {
         Socket socket = new Socket(serverAdress, serverPort);
         PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
