@@ -28,9 +28,11 @@ public class SMTPClient implements ISMTPClient {
         BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 
         String line = reader.readLine();
+        //send EHLO first
         writer.write("EHLO localhost\r\n");
         writer.flush();
         line = reader.readLine();
+        //if the code isn't 250, there's been an error
         if(!line.startsWith("250")){
             throw new IOException("SMTP error : " + line);
         }
@@ -38,12 +40,15 @@ public class SMTPClient implements ISMTPClient {
             line = reader.readLine();
         }
 
+        //writes sender
         writer.write("MAIL FROM: ");
         writer.write(message.getFrom());
         writer.write("\r\n");
         writer.flush();
         line = reader.readLine();
 
+        //writes recipient
+        //each time, checks if there hasn't been an error
         for(String to : message.getTo()){
             writer.write("RCPT TO: ");
             writer.write(to);
@@ -55,6 +60,7 @@ public class SMTPClient implements ISMTPClient {
             }
         }
 
+        //writes copies
         if(message.getCc() != null) {
             for (String to : message.getCc()) {
                 writer.write("RCPT TO: " + to + "\r\n");
@@ -66,6 +72,7 @@ public class SMTPClient implements ISMTPClient {
             }
         }
 
+        //writes hidden copies
         if(message.getBcc() != null){
             for(String to : message.getBcc()){
                 writer.write("RCPT TO: " + to + "\r\n");
@@ -77,7 +84,7 @@ public class SMTPClient implements ISMTPClient {
             }
         }
 
-
+        //writes the content of the message
         writer.write("DATA\r\n");
         writer.flush();
         line = reader.readLine();
@@ -96,6 +103,7 @@ public class SMTPClient implements ISMTPClient {
         }
         writer.write("\r\n");
 
+        //subject needs to be specifically encoded
         writer.write("Subject: =?UTF-8?B?" + Base64.getEncoder().encodeToString(message.getSubject().getBytes(StandardCharsets.UTF_8)) + "?=\r\n");
 
         writer.flush();

@@ -29,7 +29,7 @@ public class ConfigurationManager implements IConfigurationManager {
     }
 
     /**
-     * Loads the properties of the prank to be sent
+     * Loads the properties of the connection to send the messages, the number of groups and the witnesses
      * @param filename the file where the properties are stored
      * @throws IOException
      */
@@ -50,8 +50,8 @@ public class ConfigurationManager implements IConfigurationManager {
 
         bccs = new ArrayList<>();
         String witnessesToBCC = props.getProperty("witnessesToBCC");
-        String[] witnessesAdresses2 = witnessesToCC.split(",");
-        for(String s : witnessesAdresses){
+        String[] witnessesAdresses2 = witnessesToBCC.split(",");
+        for(String s : witnessesAdresses2){
             bccs.add(new Person(s));
         }
 

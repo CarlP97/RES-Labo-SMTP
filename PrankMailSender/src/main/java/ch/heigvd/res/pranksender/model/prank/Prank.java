@@ -33,10 +33,18 @@ public class Prank {
         witnesses.addAll(people);
     }
 
+    /**
+     * Set a sender of the prank
+     * @param sender the sender of the prank
+     */
     public void setSender(Person sender) {
         this.sender = sender;
     }
 
+    /**
+     * Set the message of the prank
+     * @param message the message of the prank
+     */
     public void setMessage(String message) {
         this.message = message;
     }
