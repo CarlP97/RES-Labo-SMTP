@@ -5,5 +5,5 @@ import ch.heigvd.res.pranksender.model.mail.Message;
 import java.io.IOException;
 
 public interface ISMTPClient {
-    public void sendMessage(Message message) throws IOException;
+    void sendMessage(Message message) throws IOException;
 }

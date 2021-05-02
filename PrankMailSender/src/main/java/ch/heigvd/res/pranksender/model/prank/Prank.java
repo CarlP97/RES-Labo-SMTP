@@ -2,6 +2,7 @@ package ch.heigvd.res.pranksender.model.prank;
 
 import ch.heigvd.res.pranksender.model.mail.Message;
 import ch.heigvd.res.pranksender.model.mail.Person;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +10,12 @@ import java.util.stream.Collectors;
 
 public class Prank {
 
-
+    @Setter
     private Person sender;
     private final List<Person> victims = new ArrayList<Person>();
     private final List<Person> witnesses = new ArrayList<Person>();
     private final List<Person> witnessesB = new ArrayList<Person>();
+    @Setter
     private String message;
 
 
@@ -33,21 +35,15 @@ public class Prank {
         witnesses.addAll(people);
     }
 
-    /**
-     * Set a sender of the prank
-     * @param sender the sender of the prank
-     */
-    public void setSender(Person sender) {
-        this.sender = sender;
-    }
+
 
     /**
-     * Set the message of the prank
-     * @param message the message of the prank
+     * Adds a list of Person to the blind witnesses
+     * @param people
      */
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    public void addWitnessesB(List<Person> people){ witnessesB.addAll(people);}
+
+
 
     /**
      * Generate the message to be sent, based on the sender, the victims and witnesses

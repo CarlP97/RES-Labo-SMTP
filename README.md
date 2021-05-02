@@ -42,3 +42,31 @@ Before running the prank campaign, you must make some configurations in the Pran
 
 ## Implementation
 
+![classDiagram](figures/PrankMailSenderDiagram.png)
+
+* ConfigurationManager : This class is used to retrieve data from the config files
+
+* Person : model the victim that that will send or receive a prank.
+
+* Group : model the group of victims
+
+* Message : model the different part of the email
+
+* Prank : uses the classes Person and Message to generate prank
+
+* PrankGenerator : generate groups and pranks based on the informations from ConfigurationManager
+
+* SMTPClient : sends the messages to the smtp server.
+
+The main class, PrankSender uses ConfigurationManager, PrankGenerator and SMTPClient to generate and send pranks.
+
+## Usage example
+
+The application lets you know if your campaign has been successful. Every time an email is sent you should get a message :
+
+ ![](figures/result.PNG)
+
+ This is the result you should get in MockMock web interface :
+
+![](figures/mockmockresult.PNG)
+

@@ -39,7 +39,7 @@ public class PrankGenerator {
             prank.setSender(sender);
             prank.addVictim(victims);
             prank.addWitnesses(configurationManager.getCcs());
-
+            prank.addWitnessesB(configurationManager.getBccs());
             String message = messages.get(index);
             index = (index + 1) % messages.size();
             prank.setMessage(message);

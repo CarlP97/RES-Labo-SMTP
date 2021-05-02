@@ -11,4 +11,5 @@ public interface IConfigurationManager {
     String getSmtpServerAddress();
     int getSmtpServerPort();
     List<Person> getCcs();
+    List<Person> getBccs();
 }
